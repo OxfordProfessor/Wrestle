@@ -1,0 +1,61 @@
+<html>
+<body>
+<pre>
+<h1>礦ision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: μVision V5.23.0.0
+Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: ZhangKaiYang 3173244086@qq.com, Xuchang university, LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.23
+Toolchain Path:  D:\MDK5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 4 (build 422)
+Assembler:       Armasm.exe V5.06 update 4 (build 422)
+Linker/Locator:  ArmLink.exe V5.06 update 4 (build 422)
+Library Manager: ArmAr.exe V5.06 update 4 (build 422)
+Hex Converter:   FromElf.exe V5.06 update 4 (build 422)
+CPU DLL:         SARMCM3.DLL V5.23
+Dialog DLL:      DARMSTM.dll V1.68.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V2.0.18.0
+Dialog DLL:      DARMSTM.dll V1.68.0.0
+ 
+<h2>Project:</h2>
+D:\Practice program\玉衡队非标程序\许院玉衡队程序\USER\USART.uvprojx
+Project File Date:  10/15/2021
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 4 (build 422)', folder: 'D:\MDK5\ARM\ARMCC\Bin'
+Build target 'USART'
+compiling main.c...
+..\HARDWARE\BEEP\beep.h(12): warning:  #1295-D: Deprecated declaration beepoff - give arg types
+  void beepoff();
+..\HARDWARE\OLED\oled.h(43): warning:  #1295-D: Deprecated declaration Get_data_from_ROM - give arg types
+  
+edge.h(6): warning:  #47-D: incompatible redefinition of macro "ShowStr"  (declared at line 6 of "ysy.h")
+  #define ShowStr 				display_GB2312_string		//字符串数显
+edge.h(16): warning:  #1-D: last line of file ends without a newline
+  void turn_right90(void);     //右转90（计时200/前检测到物体——停止）
+main.c(14): warning:  #47-D: incompatible redefinition of macro "ShowStr"  (declared at line 6 of "edge.h")
+  #define ShowStr 				    OLED_Display_GB2312_string  //字符串显示
+main.c(22): warning:  #1295-D: Deprecated declaration Openmv_find - give arg types
+  void Openmv_find();
+main.c(101): warning:  #223-D: function "Xun_tai" declared implicitly
+                  Xun_tai();     //巡台	
+main.c(136): warning:  #1-D: last line of file ends without a newline
+  }
+main.c: 8 warnings, 0 errors
+linking...
+Program Size: Code=11952 RO-data=424 RW-data=116 ZI-data=1732  
+FromELF: creating hex file...
+"..\OBJ\MarineRobotV1.0_2017.5" - 0 Error(s), 8 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  .\RTE\_USART
+  D:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
