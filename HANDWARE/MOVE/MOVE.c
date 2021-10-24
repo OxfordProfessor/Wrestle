@@ -174,91 +174,87 @@ void edage(){
 }
 
 void trackchannel(){      //圆周寻台
-
-//	if( minAIvalue() < dangerblack){      //小车出现在危险区,且无敌人
-//		if((averageAI(2)<dangerblack)&&(averageAI(3)>dangerblack)&&(averageAI(4)>dangerblack)) {
-//				while(1){
-//				GoodMoto(xzspeed,-xzspeed);   
-//				if( abs_my(averageAI(3),averageAI(4))<breakvalue ) break;
-//				}
-//				back2();
-//				back_2180();
-////				forward();
-////				back_N45();
+	if( minAIvalue() < dangerblack){      //小车出现在危险区,且无敌人
+		if((averageAI(2)<dangerblack)&&(averageAI(3)>dangerblack)&&(averageAI(4)>dangerblack)) {
+				while(1){
+				GoodMoto(xzspeed,-xzspeed);   
+				if( abs_my(averageAI(3),averageAI(4))<breakvalue ) break;
+				}
+				back2();
+				back_2180();
+//				forward();
+//				back_N45();
+				GoodMoto(xzspeed,xzspeed);
+//				ShowStr(2,1,"情况1");
+			}
+		if( (averageAI(2)>dangerblack)&&(averageAI(3)>dangerblack)&&(averageAI(4)<dangerblack) ) {
+				while(1){
+				GoodMoto(-xzspeed,xzspeed);  
+				if( abs_my(averageAI(3),averageAI(4))<breakvalue ) break;
+				}
+				back_2180();
+//				forward();
+//				back_N45();
+				GoodMoto(xzspeed,xzspeed);
+				clear_screen();
+			}
+		if( (averageAI(2)<dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)>dangerblack) ) {
+				while(1){
+        GoodMoto(xzspeed,-xzspeed);						   
+				if(abs_my(averageAI(3),averageAI(4))<breakvalue) break;
+				}
+//				forward();
+				GoodMoto(xzspeed,xzspeed);
+//				back_N45();
+//				GoodMoto(200,200);
+				clear_screen();
+			}
+		if( (averageAI(2)<dangerblack)&&(averageAI(3)>dangerblack)&&(averageAI(4)<dangerblack) ){
+				while(1){
+				GoodMoto(-xzspeed,xzspeed);
+				if(abs_my(averageAI(3),averageAI(4))<breakvalue) break;
+				}
+//				forward();
+				GoodMoto(xzspeed,xzspeed);
+//				back_N45();
+//				GoodMoto(200,200);
+				clear_screen();
+			}
+		if( (averageAI(2)>dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)<dangerblack) ) {
+				while(1){
+				GoodMoto(xzspeed,-xzspeed);  
+				if( abs_my(averageAI(3),averageAI(4))<breakvalue ) break;
+				}
+				forward2();
+				back_2N45();
+//				forward();
+//				back_N45();
+				GoodMoto(xzspeed,xzspeed);
+//				ShowStr(2,1,"情况2");
+			}
+			if( (averageAI(2)>dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)>dangerblack) ) {
+				while(1){
+				GoodMoto(-xzspeed,xzspeed);
+				if(abs_my(averageAI(3),averageAI(4))<breakvalue) break;
+				}
+//				forward();
+			 GoodMoto(xzspeed,xzspeed);
+//				back_N45();
+//				GoodMoto(200,200);
+				clear_screen();
+			}
+			if( (averageAI(2)<dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)<dangerblack)){
+				pavetocentral();
 //				GoodMoto(xzspeed,xzspeed);
-////				ShowStr(2,1,"情况1");
-//			}
-//		if( (averageAI(2)>dangerblack)&&(averageAI(3)>dangerblack)&&(averageAI(4)<dangerblack) ) {
-//				while(1){
-//				GoodMoto(-xzspeed,xzspeed);  
-//				if( abs_my(averageAI(3),averageAI(4))<breakvalue ) break;
-//				}
-//				back_2180();
-////				forward();
-////				back_N45();
-//				GoodMoto(xzspeed,xzspeed);
-//				clear_screen();
-//			}
-//		if( (averageAI(2)<dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)>dangerblack) ) {
-//				while(1){
-//        GoodMoto(xzspeed,-xzspeed);						   
-//				if(abs_my(averageAI(3),averageAI(4))<breakvalue) break;
-//				}
-////				forward();
-//				GoodMoto(xzspeed,xzspeed);
-////				back_N45();
-////				GoodMoto(200,200);
-//				clear_screen();
-//			}
-//		if( (averageAI(2)<dangerblack)&&(averageAI(3)>dangerblack)&&(averageAI(4)<dangerblack) ){
-//				while(1){
-//				GoodMoto(-xzspeed,xzspeed);
-//				if(abs_my(averageAI(3),averageAI(4))<breakvalue) break;
-//				}
-////				forward();
-//				GoodMoto(xzspeed,xzspeed);
-////				back_N45();
-////				GoodMoto(200,200);
-//				clear_screen();
-//			}
-//		if( (averageAI(2)>dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)<dangerblack) ) {
-//				while(1){
-//				GoodMoto(xzspeed,-xzspeed);  
-//				if( abs_my(averageAI(3),averageAI(4))<breakvalue ) break;
-//				}
-//				forward2();
-//				back_2N45();
-////				forward();
-////				back_N45();
-//				GoodMoto(xzspeed,xzspeed);
-////				ShowStr(2,1,"情况2");
-//			}
-//			if( (averageAI(2)>dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)>dangerblack) ) {
-//				while(1){
-//				GoodMoto(-xzspeed,xzspeed);
-//				if(abs_my(averageAI(3),averageAI(4))<breakvalue) break;
-//				}
-////				forward();
-//			 GoodMoto(xzspeed,xzspeed);
-////				back_N45();
-////				GoodMoto(200,200);
-//				clear_screen();
-//			}
-//			if( (averageAI(2)<dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)<dangerblack)){
-//				pavetocentral();
-////				GoodMoto(xzspeed,xzspeed);
-//				clear_screen();
-//			}
-//	}
-//	if(minAIvalue() > dangerblack){   //处于安全区，且无敌人
-//	    back_2N45();
-//	    GoodMoto(xzspeed,xzspeed);
-//	}
+				clear_screen();
+			}
+	}
+	if(minAIvalue() > dangerblack){   //处于安全区，且无敌人
+	    back_2N45();
+	    GoodMoto(xzspeed,xzspeed);
+	}
 }
-void PaveToDangerBlack()
-{
 
-}
 void pavetocentral(){       //寻找中心,可能用不上,仅在四个灰度全部在危险区时作行动判断，其原理是寻找灰度传感器中的最小值，向灰度值最大的方向移动，让其回到中心
 	switch( maxAI() )
 	{
