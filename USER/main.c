@@ -14,55 +14,55 @@
 #include "CONTRAL.h"
 
 ///////////////////////////////////////////////////////////////////////
-//δ���������ɣ��������������κ���;
-//STM32F407VET6����
-//���ߣ����������ſ���
-//�汾��V5.2
-//��������Ȩ��
+//未经作者许可，不得用于其他任何用途
+//STM32F407VET6主控
+//作者：马旭阳，张凯洋
+//版本：V5.1
+//保留所有权力
 //All rights reserved
 ///////////////////////////////////////////////////////////////////////
 
 /*
-�޸����ڣ�2021-07-14  23��28
-	δ������� ��������
-	 1. Ѱ̨����ٶȣ��Ҷ�ǽ��С
-	 2. �����ٶȣ�����Ѱ̨�ٶ�
-	 3. �ٶȵĴ�����ʽ
-	 4. Ѱ̨��ת�ٶ�
-	 5. ��Ե���ĻҶ�ֵ�Լ���Եʱ�˺��ֵ
-	 6. ����������Ĳ�ഫ������ֵ
+修改日期：2021-07-14  23：28
+	未完成任务： 调试任务：
+	 1. 寻台最大速度，灰度墙大小
+	 2. 攻击速度，攻击寻台速度
+	 3. 速度的处理方式
+	 4. 寻台旋转速度
+	 5. 边缘检测的灰度值以及边缘时退后的值
+	 6. 发现能量块的测距传感器阈值
 	 
-	 *********************************************���������2021-7-17 1��45����Ҫ������ֱ�ߵ��ٶ���************************
-	 *********************************************��̨�ٶȣ���Ե����ٶȣ������ٶ�*****************************************
+	 *********************************************更换电机（2021-7-17 1：45）需要调试走直线的速度有************************
+	 *********************************************上台速度，边缘检测速度，进攻速度*****************************************
 /*
-�����:
-              4. ǰ�����Ҷȴ������ʵ�ʲ���(�����)
-              �տ�ʼ����Լ�����һ����(��д)
-              ����ͷ�������ݲ���������д���أ��Ѽ򵥴�����
-							Ѱ̨�㷨��ܣ�������ֻ��΢��
+已完成:
+              4. 前铲两灰度处理后的实际测量(已完成)
+              刚开始检测自己是哪一方的(已写)
+              摄像头返回数据并处理（已写返回，已简单处理）
+							寻台算法框架，接下来只需微调
 */
 void Car_Init()
 {		  
-	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//����ϵͳ�ж����ȼ�����2
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//ʹ��GPIODʱ��
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//ʹ��GPIODʱ��
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);//ʹ��GPIODʱ��
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);//ʹ��GPIODʱ��
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);//ʹ��GPIODʱ��
+	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//使能GPIOD时钟
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);//使能GPIOD时钟
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);//使能GPIOD时钟
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);//使能GPIOD时钟
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);//使能GPIOD时钟
 	delay_init(168);
 //	start_time_1();
 	KEY_Init();	
 	PWM_Init();
 	SENSOR_Init();
-	USART3_Init();  //������Ϊ115200
+	USART3_Init();  //波特率为115200
 	BEEP_Init();
   OLED_Init();
 	LED_Init();    
 	TIM2_Int_Init(1000-1,84-1);	
 	ClearScreen();
 	Dection();
-	ShowStr(0,1,"��ӭ��");
-	ShowStr(4,1,"ʹ������ӳ���");
+	ShowStr(0,1,"欢迎您");
+	ShowStr(4,1,"使用天玑队程序");
 	ShowStr(6,1,"Right Reversed");
 	delay_ms(1000);
 	ClearScreen();
@@ -84,17 +84,17 @@ int main(void)
 	{
 		Key = KEY_Scan(0);
 		Key_Temp = Key;
-		ShowStr(0,1,"1.���ģʽ");
-		ShowStr(2,1,"2.������");
-		ShowStr(4,1,"3.������");
-		ShowStr(6,1,"4.����");
+		ShowStr(0,1,"1.检测模式");
+		ShowStr(2,1,"2.主程序");
+		ShowStr(4,1,"3.电机检测");
+		ShowStr(6,1,"4.返回");
 		Key = KEY_Scan(0);
 		if(Key != 0)   Key_Temp = Key;
-		if(Key_Temp==1)//����1�����************���������
+		if(Key_Temp==1)//按键1程序段************传感器检测
 		{
   			test();   
 		}
-		else if(Key_Temp==2)//����2�����************������
+		else if(Key_Temp==2)//按键2程序段************主程序
 		{
         motor_test();
 		}
@@ -117,7 +117,7 @@ int main(void)
 					}
 				 }
 	   }
-		else if(Key_Temp==4)//����4�����******************����
+		else if(Key_Temp==4)//按键4程序段******************返回
 		  {
 			  ClearScreen();
 	    }
