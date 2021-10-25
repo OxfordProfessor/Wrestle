@@ -1,5 +1,13 @@
 #include "MOVE.h"
 #include "CONTRAL.h"
+#define	baseSpeed 300
+#define dangerblack1 800
+#define dangerblack2 1000
+#define MoreSpinSpeed  300
+#define LessSpinSpeed  200
+#define TurnAround_MoreSpinSpeed  200
+#define TurnAround_LessSpinSpeed  -200
+#define BreakValue		300
 extern u16 hui0[5],hui1[5],hui2[5],hui3[5],hui4[5];
 extern u16 HUI0,HUI1,HUI2,HUI3,HUI4;
 extern u16 ceju5,ceju6,ceju7,ceju8,ceju9,ceju10,ceju11,ceju12,ceju13,ceju14,ceju15;
@@ -173,120 +181,115 @@ void edage(){
 		}
 }
 
-void trackchannel(){      //无序寻台
-	if( minAIvalue() < dangerblack){      //小车出现在危险区,且无敌人
-		if((averageAI(2)<dangerblack)&&(averageAI(3)>dangerblack)&&(averageAI(4)>dangerblack)) {
-				while(1){
-				GoodMoto(xzspeed,-xzspeed);   
-				if( abs_my(averageAI(3),averageAI(4))<breakvalue ) break;
-				}
-				back2();
-				back_2180();
-//				forward();
-//				back_N45();
-				GoodMoto(xzspeed,xzspeed);
-//				ShowStr(2,1,"情况1");
-			}
-		if( (averageAI(2)>dangerblack)&&(averageAI(3)>dangerblack)&&(averageAI(4)<dangerblack) ) {
-				while(1){
-				GoodMoto(-xzspeed,xzspeed);  
-				if( abs_my(averageAI(3),averageAI(4))<breakvalue ) break;
-				}
-				back_2180();
-//				forward();
-//				back_N45();
-				GoodMoto(xzspeed,xzspeed);
-				clear_screen();
-			}
-		if( (averageAI(2)<dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)>dangerblack) ) {
-				while(1){
-        GoodMoto(xzspeed,-xzspeed);						   
-				if(abs_my(averageAI(3),averageAI(4))<breakvalue) break;
-				}
-//				forward();
-				GoodMoto(xzspeed,xzspeed);
-//				back_N45();
-//				GoodMoto(200,200);
-				clear_screen();
-			}
-		if( (averageAI(2)<dangerblack)&&(averageAI(3)>dangerblack)&&(averageAI(4)<dangerblack) ){
-				while(1){
-				GoodMoto(-xzspeed,xzspeed);
-				if(abs_my(averageAI(3),averageAI(4))<breakvalue) break;
-				}
-//				forward();
-				GoodMoto(xzspeed,xzspeed);
-//				back_N45();
-//				GoodMoto(200,200);
-				clear_screen();
-			}
-		if( (averageAI(2)>dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)<dangerblack) ) {
-				while(1){
-				GoodMoto(xzspeed,-xzspeed);  
-				if( abs_my(averageAI(3),averageAI(4))<breakvalue ) break;
-				}
-				forward2();
-				back_2N45();
-//				forward();
-//				back_N45();
-				GoodMoto(xzspeed,xzspeed);
-//				ShowStr(2,1,"情况2");
-			}
-			if( (averageAI(2)>dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)>dangerblack) ) {
-				while(1){
-				GoodMoto(-xzspeed,xzspeed);
-				if(abs_my(averageAI(3),averageAI(4))<breakvalue) break;
-				}
-//				forward();
-			 GoodMoto(xzspeed,xzspeed);
-//				back_N45();
-//				GoodMoto(200,200);
-				clear_screen();
-			}
-			if( (averageAI(2)<dangerblack)&&(averageAI(3)<dangerblack)&&(averageAI(4)<dangerblack)){
-				pavetocentral();
-//				GoodMoto(xzspeed,xzspeed);
-				clear_screen();
-			}
-	}
-	if(minAIvalue() > dangerblack){   //处于安全区，且无敌人
-	    back_2N45();
-	    GoodMoto(xzspeed,xzspeed);
-	}
-}
-void pavetocentral(){       //寻找中心,可能用不上,仅在四个灰度全部在危险区时作行动判断，其原理是寻找灰度传感器中的最小值，向灰度值最大的方向移动，让其回到中心
-	switch( maxAI() )
+char Black_State()
+{		//判断位于灰度墙的状态
+	if(AI(2)<dangerblack1)      //车头传感器不在灰度墙带内,而位于外层灰度墙
 	{
-		case 2:
+		if(AI(3)>AI(4) && AI(3))
 		{
-			while(1){
-			GoodMoto(-xzspeed,xzspeed);
-				if(abs_my(averageAI(3),averageAI(4))<breakvalue && maxAI()==2)break;
-			}
-			 GoodMoto(xzspeed,xzspeed);        //边缘检测
+			return 'A';       //返回A，A情况采取措施为逆时针转
 		}
-		break;
-		case 3:
+		else if(AI(3)<AI(4))
 		{
-			while(1){
-			GoodMoto(-xzspeed,xzspeed);
-				if(abs_my(averageAI(3),averageAI(4))<breakvalue && maxAI()==2)break;
-			}
-			 GoodMoto(xzspeed,xzspeed);       //边缘检测
+			return 'B';			//返回B，B情况采取措施为逆时针转
 		}
-		break;
-		case 4:
+	}
+	else if(AI(2)>dangerblack2)  //车头传感器不位于灰度带内，而位于内层灰度墙
+	{
+		if(AI(3)>AI(4))
 		{
-			while(1){
-			GoodMoto(xzspeed,-xzspeed);
-				if(abs_my(averageAI(3),averageAI(4))<breakvalue && maxAI()==2)break;
-			}
-			back_2180();
-			 GoodMoto(xzspeed,xzspeed);        //边缘检测
+			return 'B';       //返回B，B情况采取措施为逆时针转
 		}
-		break;
-  }
+		else if(AI(3)<AI(4))
+		{
+			return 'A';		//返回A，A情况采取措施为逆时针转
+		}
+	}
+	else if(AI(2)>dangerblack1 && AI(2)<dangerblack2)   //车头位于灰度带内，此时又需要判断车尾传感器位置
+	{
+		if(AI(3)<dangerblack1 || AI(4)<dangerblack1)
+		{
+			if(AI(3)>AI(4))
+			{
+				return 'A';		//返回A，A情况采取措施为逆时针转				
+			}
+			else if(AI(3)<AI(4))
+			{
+				return 'B';		 //返回B，B情况采取措施为逆时针转
+			}			
+		}
+		else
+		{
+			if(AI(3)<AI(4))
+			{
+				return 'B';		 //返回B，B情况采取措施为逆时针转				
+			}
+			else if(AI(3)>AI(4))
+			{
+				return 'A';		//返回A，A情况采取措施为逆时针转
+			}				
+		}
+	}
 }
+
+void trackchannel()
+{      //圆周寻台
+	if(minAIvalue()>dangerblack2)       //位于灰度墙内部
+	{
+		while(minAI()==2 && abs_my(AI(4),AI(3))<BreakValue)			//转直到车头指向外环
+		{
+			if(AI(4)>AI(3))
+			{
+				GoodMoto(TurnAround_MoreSpinSpeed,TurnAround_LessSpinSpeed);    
+			}
+			else{
+				GoodMoto(TurnAround_LessSpinSpeed,TurnAround_MoreSpinSpeed);
+			}
+		}
+		while(minAIvalue()<dangerblack2)     //向前走，直到某一传感器达到灰度墙区域内
+		{
+			GoodMoto(baseSpeed,baseSpeed);
+		}
+	}
+	if(maxAIvalue()<dangerblack1)     //位于灰度墙外部
+	{
+		while(maxAI()==2 && abs_my(AI(4),AI(3))<BreakValue)			//转直到车头指向中心
+		{
+			if(AI(4)>AI(3))
+			{
+				GoodMoto(TurnAround_MoreSpinSpeed,TurnAround_LessSpinSpeed);    
+			}
+			else{
+				GoodMoto(TurnAround_LessSpinSpeed,TurnAround_MoreSpinSpeed);
+			}
+		}
+		while(maxAIvalue()>dangerblack1)     //向前走，直到某一传感器达到灰度墙区域内
+		{
+			GoodMoto(baseSpeed,baseSpeed);
+		}
+	}
+	else{			//某一传感器位于灰度墙区域内
+		switch(Black_State()){
+			case 'A':
+				while((AI(2)>dangerblack1 && AI(2)>dangerblack2)&&(abs_my(AI(3),AI(4)))<BreakValue)
+				{
+					GoodMoto(TurnAround_LessSpinSpeed,TurnAround_MoreSpinSpeed);
+				}
+				GoodMoto(baseSpeed,baseSpeed);
+			break;
+			case 'B':
+				while((AI(2)>dangerblack1 && AI(2)>dangerblack2)&&(abs_my(AI(3),AI(4)))<BreakValue)
+				{
+					GoodMoto(TurnAround_MoreSpinSpeed,TurnAround_LessSpinSpeed);
+				}
+				GoodMoto(baseSpeed,baseSpeed);				
+			break;
+		}
+	}
+
+}
+
+
 u16 averageAI(int i){         //灰度平均值
 	int times=5;
 	int t;
@@ -370,15 +373,7 @@ void forward()
 		if(mseconds()>400)	{GoodMoto(0,0); break;}
 	}
 }
-void forward2()
-{
-	start_time();
-	while(1)
-	{
-		GoodMoto(400,400);
-		if(mseconds()>400)	GoodMoto(0,0); break;
-	}
-}
+
 void back()
 {
 	start_time();
@@ -389,15 +384,7 @@ void back()
 	}
 }
 
-void back2()
-{
-	start_time();
-	while(1)
-	{
-		GoodMoto(-400,-400);
-		if(mseconds()>200)	GoodMoto(0,0); break;
-	}
-}
+
 void forward_stop()//前进时反向刹车
 {
 	start_time();
@@ -407,15 +394,7 @@ void forward_stop()//前进时反向刹车
 		if(mseconds()>500)	{GoodMoto(0,0); break;}
 	}
 }
-void forward_2stop()//前进时反向刹车
-{
-	start_time();
-	while(1)
-	{
-		GoodMoto(-maxspeed,-maxspeed);	
-		if(mseconds()>500)	GoodMoto(0,0); break;
-	}
-}
+
 
 void back_S90()//逆时针90
 {
@@ -466,15 +445,7 @@ void back_N45()//顺时针45(需测试，未测试)
 		if(mseconds()>220)	{GoodMoto(0,0); break;}
 	}
 }
-void back_2N45()//顺时针45(需测试，未测试)
-{
-	start_time();
-	while(1)
-	{
-		GoodMoto(xzspeed,-xzspeed);
-		if(mseconds()>220)	GoodMoto(0,0); break;
-	}
-}
+
 void back_S45()//逆时针45(需测试，未测试)
 {
 	start_time();
@@ -485,15 +456,7 @@ void back_S45()//逆时针45(需测试，未测试)
 	}	
 }
 
-void back_2S45()//逆时针45(需测试，未测试)
-{
-	start_time();
-	while(1)
-	{
-		GoodMoto(-xzspeed,xzspeed);
-		if(mseconds()>220)	GoodMoto(0,0); break;
-	}	
-}
+
 void back_180()//顺时针180(需测试，未测试)
 {
 	start_time();
@@ -503,18 +466,7 @@ void back_180()//顺时针180(需测试，未测试)
 		if(mseconds()>870)	{GoodMoto(0,0); break;}
 	}
 }
-void back_2180()//顺时针180(需测试，未测试)
-{
-	start_time();
-	while(1)
-	{
-		GoodMoto(xzspeed,-xzspeed);
-		if(mseconds()>870)
-		{			
-			GoodMoto(0,0); break;
-		}
-	}
-}
+
 
 
 void continue_attack()

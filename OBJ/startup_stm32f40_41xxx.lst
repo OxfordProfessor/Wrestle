@@ -869,11 +869,10 @@ ARM Macro Assembler    Page 14
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M4.fp --apcs=int
 erwork --depend=..\obj\startup_stm32f40_41xxx.d -o..\obj\startup_stm32f40_41xxx
-.o -IB:\机器人格斗\10.9\2021.07,14初赛程序\USER\RTE -IF:\keilMDK\keilMDK\ARM\PA
-CK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include -IF:\kei
-lMDK\keilMDK\ARM\CMSIS\Include --predefine="__UVISION_VERSION SETA 518" --prede
-fine="STM32F407xx SETA 1" --list=..\obj\startup_stm32f40_41xxx.lst ..\CORE\star
-tup_stm32f40_41xxx.s
+.o -I.\RTE\_Template -ID:\MDK5\ARM\PACK\Keil\STM32F4xx_DFP\2.13.0\Drivers\CMSIS
+\Device\ST\STM32F4xx\Include -ID:\MDK5\ARM\CMSIS\Include --predefine="__EVAL SE
+TA 1" --predefine="__UVISION_VERSION SETA 523" --predefine="STM32F407xx SETA 1"
+ --list=..\obj\startup_stm32f40_41xxx.lst ..\CORE\startup_stm32f40_41xxx.s
 
 
 
@@ -1986,4 +1985,4 @@ Symbol: __use_two_region_memory
       None
 Comment: __use_two_region_memory unused
 3 symbols
-448 symbols in table
+449 symbols in table

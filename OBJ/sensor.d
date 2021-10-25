@@ -3,7 +3,7 @@
 ..\obj\sensor.o: ..\SYSTEM\sys\sys.h
 ..\obj\sensor.o: ..\USER\stm32f4xx.h
 ..\obj\sensor.o: ..\CORE\core_cm4.h
-..\obj\sensor.o: F:\keilMDK\keilMDK\ARM\ARMCC\Bin\..\include\stdint.h
+..\obj\sensor.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdint.h
 ..\obj\sensor.o: ..\CORE\core_cmInstr.h
 ..\obj\sensor.o: ..\CORE\core_cmFunc.h
 ..\obj\sensor.o: ..\CORE\core_cm4_simd.h
@@ -39,7 +39,7 @@
 ..\obj\sensor.o: ..\SYSTEM\delay\delay.h
 ..\obj\sensor.o: ..\HANDWARE\MOVE\MOVE.h
 ..\obj\sensor.o: ..\HANDWARE\OLED\OLED.h
-..\obj\sensor.o: F:\keilMDK\keilMDK\ARM\ARMCC\Bin\..\include\stdlib.h
+..\obj\sensor.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\sensor.o: ..\HANDWARE\CAMERA\CAMERA.h
 ..\obj\sensor.o: ..\HANDWARE\BEEP\BEEP.h
 ..\obj\sensor.o: ..\HANDWARE\TIM\TIM.h
