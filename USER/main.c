@@ -101,8 +101,8 @@ int main(void)
 		else if(Key_Temp==3)
 		{
 
-			  touch_sensor9();
-			  up_stage();
+//			  touch_sensor9();
+//			  up_stage();
 			  TIM5_Int_Init(50-1,8400-1);
 			  ClearScreen();
 				while(1)

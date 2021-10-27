@@ -6,6 +6,7 @@
 #define taixia1  ((hdctyz<HUI2)&&(HUI2<hddtyz))&&((hdctyz<HUI3)&&(HUI3<hddtyz))&&((hdctyz<HUI4)&&(HUI4<hddtyz))&&(enemynumber()>2)
 extern u16 hui0[5],hui1[5],hui2[5],hui3[5],hui4[5];
 extern u16 HUI0,HUI1,HUI2,HUI3,HUI4;
+extern int left,right;
 extern int receive;
 extern u16 ceju5,ceju6,ceju7,ceju8,ceju9,ceju10,ceju11,ceju12,ceju13,ceju14,ceju15;
 #define weibuduiqi  ((abs_my(AI(7),AI(8))<dqbz)&&(AI(15)<czzx)&&((AI(9)<1000)&&(AI(10)<1000))&&(abs_my(AI(5),AI(6))<dqbz))
@@ -74,7 +75,7 @@ int findenemy()
 		 {
 				while(1)
 				{
-					GoodMoto(attck_speed,attck_speed);
+					GoodMoto(left,right);
 					if(AI(0)<drcjz||AI(1)<drcjz)	
 					{
 						edage();	

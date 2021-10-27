@@ -51,5 +51,4 @@ int BlackFilter0(void);
 int BlackFilter1(void);
 void attack1(void);
 void trackchannel(void);
-char Black_State(void);
 #endif

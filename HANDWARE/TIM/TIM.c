@@ -14,10 +14,31 @@ int qiangjiao1;
 int qianfangenemy1;
 int position;
 int yjdrz = 800;//看见敌人时候的值
+int error;
+int xt=0;
+int HD[5]={1300,1300,0,0,0};
+int left,right;
 u16 ad1[16];
 u16 HUI0,HUI1,HUI2,HUI3,HUI4;
 u16 ceju5,ceju6,ceju7,ceju8,ceju9,ceju10,ceju11,ceju12,ceju13,ceju14,ceju15;
 u16 hui0[5]={0},hui1[5]={0},hui2[5]={0},hui3[5]={0},hui4[5]={0};
+void xuntai()
+{
+	if((AI(1)<HD[1])&&(AI(0)>HD[0]))//右进左出
+	{
+		xt=1;
+	}
+	else if((AI(0)<HD[0])&&(AI(1)>HD[1]))//左进右出
+	{
+		xt=2;
+	}
+	else if((AI(0)<HD[0])&&(AI(1)<HD[1]))//全进掉头
+	{
+		xt=3;
+	}
+	else
+		xt=0;
+}
 void weibuduiqijiance()
 {
 		if((abs_my(ceju7,ceju8)<dqbz)&&(abs_my(ceju5,ceju6)<dqbz)&&(ceju15<czzx)&&((ceju9<czzx)||(ceju10<czzx)))
@@ -391,70 +412,70 @@ void TIM5_IRQHandler(void)
 //		}
 //  }
 	 switch (l)
-  {
-  	case 5:
+     {
+  	  case 5:
 			if(maxNum>800)
-			position=1;
+			position=1,error=0;
 			else
 			position=0;	
   		break;
-  	case 6:
+  	  case 6:
 			if(maxNum>800)
-			position=1;
+			position=1,error=0;
 			else
 				position=0;	
   		break;
 	  case 7:
 			if(maxNum>800)
-				position=5;
+				position=5,error=-100;
 			else
 				position=0;	
 			break;
 	  case 8:
 			if(maxNum>800)
-				position=5;
+				position=5,error=-100;
 			else
 				position=0;	
 			break;
-  	case 9:
+	  case 9:
 			if(maxNum>800)
-				position=7;
+				position=7,error=-100;
 			else
 				position=0;	
   		break;
 	  case 10:
 			if(maxNum>800)
-			position=3;
+			position=3,error=100;
 			else
 				position=0;	
   		break;
 	  case 11:
 			if(maxNum>800)
-			position=8;
+			position=8,error=-100;
 			else
 			position=0;	
   		break;
 	  case 12:
 			if(maxNum>800)
-			position=2;
+			position=2,error=100;
 			else
 			position=0;	
   		break;
 	  case 13:
 			if(maxNum>800)
-			position=6;
+			position=6,error=-100;
 			else
 				position=0;	
   		break;
-		case 14:
+	  case 14:
 			if(maxNum>800)
-			position=4;
+			position=4,error=100;
 			else
 				position=0;	
   		break;
 	  case 15:
 			if(maxNum>800)
-			position=5;
+			position=5,error=-100;
 			else
 				position=0;	
   		break;
@@ -464,6 +485,15 @@ void TIM5_IRQHandler(void)
   		break;
 		}
   }
+  		if(error==0){
+			left=400;
+			right=400;
+		}
+		if(error!=0){
+			left=error;
+			right=-error;
+		}
+		xuntai();
 }
 	TIM_ClearITPendingBit(TIM5,TIM_IT_Update);  //清除中断标志位
 }
