@@ -1,5 +1,6 @@
 #include "CONTRAL.h"
 #include "MOVE.h"
+#define MaxSpinTimes 4000
 #define HUANGFANG	(AI(2)<120 && AI(2)>60)
 #define LANFANG	 (AI(2)<240 && AI(2)>150)
 #define FUKONG    (HUI0<hdctyz)&&(HUI1<hdctyz)&&(HUI2<hdctyz)&&(HUI3<hdctyz)&&(HUI4<hdctyz)
@@ -14,7 +15,7 @@ extern u16 ceju5,ceju6,ceju7,ceju8,ceju9,ceju10,ceju11,ceju12,ceju13,ceju14,ceju
 int DIREN=51;
 int attck_speed = 350;
 extern int position;
-int drcjz = 750;
+int drcjz = 200;
 #if HUANGFANGflag
 #define DIREN  51
 #endif
@@ -78,6 +79,7 @@ int findenemy()
 					GoodMoto(left,right);
 					if(AI(0)<drcjz||AI(1)<drcjz)	
 					{
+						ShowStr(0,1,"出台");
 						edage();	
 						break;
 					}
@@ -94,8 +96,13 @@ int findenemy()
 				if(AI(0)<drcjz||AI(1)<drcjz||position==1)	{
 				GoodMoto(0,0);
 				break;//处理掉台、边缘等情况
+				if(mseconds()>MaxSpinTimes){
+					position=0;
+				break;
+				}
 				}
 			}
+			
 		}
 		break;
 		case 3:        //右方遇到敌人
@@ -107,6 +114,10 @@ int findenemy()
 				if(AI(0)<drcjz||AI(1)<drcjz||position==1){	
 					GoodMoto(0,0);
 					break;//处理掉台、边缘等情况
+				}
+				if(mseconds()>MaxSpinTimes){
+					position=0;
+				break;
 				}
 			}
 			GoodMoto(0,0);
@@ -122,6 +133,10 @@ int findenemy()
 					GoodMoto(0,0);
 					break;//处理掉台、边缘等情况
 				}
+				if(mseconds()>MaxSpinTimes){
+					position=0;
+				break;
+				}
 			}		
 		}
 		break;
@@ -134,6 +149,10 @@ int findenemy()
 				if(AI(0)<drcjz||AI(1)<drcjz||position==1){
 					GoodMoto(0,0);
 					break;//处理掉台、边缘等情况
+				}
+				if(mseconds()>MaxSpinTimes){
+					position=0;
+				break;
 				}
 			}
 		}
@@ -149,6 +168,10 @@ int findenemy()
 					GoodMoto(0,0);
 					break;//处理掉台、边缘等情况
 				}
+				if(mseconds()>MaxSpinTimes){
+					position=0;
+				break;
+				}
 			}	
 		}
 		break;
@@ -161,6 +184,10 @@ int findenemy()
 				if(AI(0)<drcjz||AI(1)<drcjz||position==1){
 					GoodMoto(0,0);
 					break;//处理掉台、边缘等情况
+				}
+				if(mseconds()>MaxSpinTimes){
+					position=0;
+				break;
 				}
 			}				
 		}
@@ -176,12 +203,16 @@ int findenemy()
 					GoodMoto(0,0);
 					break;//处理掉台、边缘等情况
 				}
+				if(mseconds()>MaxSpinTimes){
+					position=0;
+				break;
+				}
 			}			
 		}
 		break;
 		default:		//处理前行的情况
 		{
-			 GoodMoto(400,400);
+//			 GoodMoto(400,400);
 		}
 		break;
  }

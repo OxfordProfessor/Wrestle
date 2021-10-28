@@ -411,6 +411,7 @@ void TIM5_IRQHandler(void)
 //  		break;
 //		}
 //  }
+	xuntai();
 	 switch (l)
      {
   	  case 5:
@@ -486,14 +487,32 @@ void TIM5_IRQHandler(void)
 		}
   }
   		if(error==0){
+			if(AI(0)>1600){
 			left=400;
 			right=400;
+			}
+			else if(AI(0)<=1600 && AI(0)>=1000){
+			left=0.25*AI(0);
+			right=0.25*AI(1);
+				while((left%25)!=0)
+				{
+						left++;
+				}
+				while((right%25)!=0)
+				{
+						right++;
+				}
+			}
+			else if(AI(0)<1000){
+			left=200;
+			right=200;
+			}
+	
 		}
 		if(error!=0){
 			left=error;
 			right=-error;
 		}
-		xuntai();
 }
 	TIM_ClearITPendingBit(TIM5,TIM_IT_Update);  //清除中断标志位
 }

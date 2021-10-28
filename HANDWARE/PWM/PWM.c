@@ -241,6 +241,8 @@ void GoodMoto(int lspeed,int rspeed)//两路电机
 				Rs -= 25;	
 				else
 				Rs = Rs;
+				if(Ls>600)  Ls=600;
+				if(Rs>600)  Rs=600;
 				motor(0,Ls);
 				motor(1,-Ls);
 				motor(2,-Rs);

@@ -157,24 +157,20 @@ void edge_spin()
 	}
 }
 
-void edage(){
-	  if(HUI0>900 && HUI1>900){
-		   GoodMoto(300,300);
+void edage()
+{
+	    if(HUI0<200 || HUI1<200){
+			forward_stop();
 		}
-		else if(HUI0<900 && HUI1>900)
+		else if(HUI0<200 && HUI1>200)
 		{
 			forward_stop();
 			back_N90();
 		}
-		else if(HUI0>900 && HUI1<900)
+		else if(HUI0>200 && HUI1<200)
 		{
 			forward_stop();
 			back_S90();
-		}
-		else
-		{
-			forward_stop();
-			edge_spin();
 		}
 }
 
