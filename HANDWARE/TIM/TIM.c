@@ -487,26 +487,28 @@ void TIM5_IRQHandler(void)
 		}
   }
   		if(error==0){
-			if(AI(0)>1600){
-			left=400;
-			right=400;
-			}
-			else if(AI(0)<=1600 && AI(0)>=1000){
-			left=0.25*AI(0);
-			right=0.25*AI(1);
-				while((left%25)!=0)
-				{
-						left++;
-				}
-				while((right%25)!=0)
-				{
-						right++;
-				}
-			}
-			else if(AI(0)<1000){
-			left=200;
-			right=200;
-			}
+			left=350;
+			right=350;
+//			if(AI(0)>1600){
+//			left=300;
+//			right=300;
+//			}
+//			else if(AI(0)<=1600 && AI(0)>=1000){
+//			left=0.18*AI(0);
+//			right=0.18*AI(1);
+//				while((left%25)!=0)
+//				{
+//						left++;
+//				}
+//				while((right%25)!=0)
+//				{
+//						right++;
+//				}
+//			}
+//			else if(AI(0)<1000){
+//			left=150;
+//			right=150;
+//			}
 	
 		}
 		if(error!=0){

@@ -16,9 +16,9 @@
 #define ceejuyz  1200           //测距阈值
 #define maxspeed 450          //最大速度500
 #define runtime  500        //小跑前进时间700
-#define xpspeed  350          //小跑速度400
+#define xpspeed  250          //小跑速度400
 #define xzspeed  175      //旋转速度200
-#define dtxzspeed  100      //台下旋转速度150
+#define dtxzspeed  125      //台下旋转速度150
 #define enemylimit 900
 #ifndef _CONTRL_H
 #define _CONTRL_H

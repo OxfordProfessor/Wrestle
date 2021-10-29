@@ -15,7 +15,7 @@ extern u16 ceju5,ceju6,ceju7,ceju8,ceju9,ceju10,ceju11,ceju12,ceju13,ceju14,ceju
 int DIREN=51;
 int attck_speed = 350;
 extern int position;
-int drcjz = 200;
+int drcjz = 700;
 #if HUANGFANGflag
 #define DIREN  51
 #endif
@@ -71,6 +71,7 @@ int findenemy()
 		 {
 		 		back_N60();
 			  GoodMoto(300,300);
+			 receive=0;
 	   }
 		 else
 		 {
@@ -80,9 +81,16 @@ int findenemy()
 					if(AI(0)<drcjz||AI(1)<drcjz)	
 					{
 						ShowStr(0,1,"出台");
-						edage();	
+						forward_stop();	
 						break;
 					}
+//					else if(AI(3)<200||AI(4)<200)
+//					{
+//						ShowStr(0,1,"出台");
+//						forward();
+//						break;
+//					}
+					position=0;
 				}				
 			}
 	  }
@@ -644,14 +652,14 @@ void detection_taixia_direction()
 			 //往前跑一小段，对齐，上台更猛
 			   while(1)
 				   {
-					    GoodMoto(xpspeed,xpspeed);            
-              if(mseconds()>runtime)	
-							{
-              GoodMoto(0,0);		
+						 GoodMoto(xpspeed,xpspeed);            
+						 if(mseconds()>runtime)	
+						{
+							GoodMoto(0,0);		
 							delay_ms(100);
-						  break;
-							}
-					 }
+							break;
+						}
+				   }
 			up_stage1();	       
 	  }
 		//否则需要找对其的方向   //若转不到尾部对齐，则判断在墙角(既墙角置1)
@@ -682,12 +690,12 @@ void detection_taixia_direction()
 			   while(1)
 				   {     
 					    GoodMoto(xpspeed,xpspeed);            
-              if(mseconds()>runtime)
-							{
-						   GoodMoto(0,0);	
-								delay_ms(100);
-						   break;
-							}
+						if(mseconds()>runtime)
+						{
+							GoodMoto(0,0);	
+							delay_ms(100);
+							break;
+						}
 					 }
 				up_stage1();
 			 }
@@ -705,15 +713,15 @@ void detection_taixia_direction()
 							delay_ms(100);							 
 						  break;
 						 }
-						 if(mseconds()>4000)
+						 if(mseconds()>4500)
 						 {
 						 	 GoodMoto(0,0);
 							 delay_ms(100);
 						    break;
 						 }
 					 }
-			   GoodMoto(500,500);
-			   delay_ms(1000);	
+			   GoodMoto(300,300);
+			   delay_ms(800);	
 				 GoodMoto(0,0);
 					delay_ms(100);					 
 				 //尾部对齐

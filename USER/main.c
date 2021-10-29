@@ -17,13 +17,13 @@
 //未经作者许可，不得用于其他任何用途
 //STM32F407VET6主控
 //作者：马旭阳，张凯洋
-//版本：V7.2稳定版
+//版本：V7.3稳定版
 //保留所有权力
 //All rights reserved
 ///////////////////////////////////////////////////////////////////////
 
 /*
-修改日期：2021-10-28  19:40
+修改日期：2021-10-29  19:02
 
 */
 void Car_Init()
@@ -86,8 +86,8 @@ int main(void)
 		else if(Key_Temp==3)
 		{
 
-//			  touch_sensor9();
-//			  up_stage();
+			  touch_sensor9();
+			  up_stage();
 			  TIM5_Int_Init(50-1,8400-1);
 			  ClearScreen();
 				while(1)

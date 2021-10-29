@@ -9,6 +9,7 @@ extern u16 HUI0,HUI1,HUI2,HUI3,HUI4;
 extern u16 ceju5,ceju6,ceju7,ceju8,ceju9,ceju10,ceju11,ceju12,ceju13,ceju14,ceju15;
 extern int attck_speed;
 extern int xt;
+extern int drcjz;
 //extern  u16 hui0[5]={0},hui1[5]={0},hui2[5]={0},hui3[5]={0},hui4[5]={0};
 //这个文件用来写机器人的相关动作函数
 u8 flag_1 = 0;//前铲出擂台的标志
@@ -57,10 +58,10 @@ void up_stage()       //初始上台
 }
 void up_stage1()     //上台
 {
-  ClearScreen();
+		ClearScreen();
 	{
-		GoodMoto(-maxspeed,-maxspeed);
-		delay_ms(1000);  //1500
+		GoodMoto(-500,-500);
+		delay_ms(1200);  //1500
 		GoodMoto(0,0);   
 		delay_ms(100);
 		back_S45();
@@ -159,18 +160,23 @@ void edge_spin()
 
 void edage()
 {
-	    if(HUI0<200 || HUI1<200){
+	    if(HUI0<drcjz|| HUI1<drcjz)
+		{
 			forward_stop();
 		}
-		else if(HUI0<200 && HUI1>200)
+		else if(HUI0<drcjz && HUI1>drcjz)
 		{
 			forward_stop();
 			back_N90();
 		}
-		else if(HUI0>200 && HUI1<200)
+		else if(HUI0>drcjz && HUI1<drcjz)
 		{
 			forward_stop();
 			back_S90();
+		}
+		else if(AI(3)<200||AI(4)<200)
+		{
+			forward();
 		}
 }
 
@@ -189,7 +195,7 @@ void trackchannel()
 				{
 					GoodMoto(0,0);
 					break;
-			}
+				}
 			}
 		}
 		break;
@@ -203,7 +209,7 @@ void trackchannel()
 				{
 					GoodMoto(0,0);
 					break;
-			  }
+			    }
 			}
 		}
 		break;
@@ -251,7 +257,7 @@ void trackchannel()
 			while(1)
 			{
 				GoodMoto(-200,-200);
-				if(xt=0)
+				if(xt==0)
 				{
 					GoodMoto(0,0);
 					break;
@@ -343,7 +349,7 @@ void forward()
 	start_time();
 	while(1)
 	{
-		GoodMoto(400,400);
+		GoodMoto(450,450);
 		if(mseconds()>400)	{GoodMoto(0,0); break;}
 	}
 }
@@ -365,7 +371,7 @@ void forward_stop()//前进时反向刹车
 	while(1)
 	{
 		GoodMoto(-maxspeed,-maxspeed);	
-		if(mseconds()>500)	{GoodMoto(0,0); break;}
+		if(mseconds()>600)	{GoodMoto(0,0); break;}
 	}
 }
 
